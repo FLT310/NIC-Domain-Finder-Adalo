@@ -31,7 +31,9 @@ function displayResult(data){
 
     }
 
+    // ==========================
     // Traduction du statut
+    // ==========================
 
     let statusText = "-";
 
@@ -54,7 +56,9 @@ function displayResult(data){
 
     }
 
+    // ==========================
     // Texte WHOIS
+    // ==========================
 
     const whoisText = data.available
         ? "Non applicable"
@@ -198,64 +202,3 @@ function displayResult(data){
     }
 
 }
-
-// ===========================================
-// DASHBOARD
-// ===========================================
-
-function loadDashboard(){
-
-    const total =
-    Number(localStorage.getItem("searchCount") || 0);
-
-    const last =
-    localStorage.getItem("lastSearch") || "-";
-
-    const dispo =
-    Number(localStorage.getItem("availableCount") || 0);
-
-    document.getElementById("searchCount").textContent = total;
-
-    document.getElementById("lastSearch").textContent = last;
-
-    const available =
-    document.getElementById("availableCount");
-
-    if(available){
-
-        available.textContent = dispo;
-
-    }
-
-}
-
-
-
-function updateDashboard(domain, available = false){
-
-    let total =
-    Number(localStorage.getItem("searchCount") || 0);
-
-    total++;
-
-    localStorage.setItem("searchCount", total);
-
-    localStorage.setItem("lastSearch", domain);
-
-    let dispo =
-    Number(localStorage.getItem("availableCount") || 0);
-
-    if(available){
-
-        dispo++;
-
-        localStorage.setItem("availableCount", dispo);
-
-    }
-
-    loadDashboard();
-
-}
-
-
-

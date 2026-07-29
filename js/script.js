@@ -1,55 +1,53 @@
 // ===========================================
 // SCRIPT.JS
 // NIC Domain Finder
+// Version Adalo
 // ===========================================
 
 const input = document.getElementById("domainInput");
-const clearSearchBtn =
-document.getElementById("clearSearchBtn");
+const button = document.getElementById("searchBtn");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
 
-// Afficher la croix uniquement lorsqu'il y a du texte
+// ===========================================
+// Afficher / masquer la croix
+// ===========================================
 
-input.addEventListener("input",()=>{
+input.addEventListener("input", () => {
 
     clearSearchBtn.style.display =
-    input.value.trim() ? "block" : "none";
+        input.value.trim() ? "block" : "none";
 
 });
 
-// Réinitialiser la recherche
+// ===========================================
+// Réinitialiser la recherche actuelle
+// ===========================================
 
-clearSearchBtn.addEventListener("click",()=>{
+clearSearchBtn.addEventListener("click", () => {
 
     input.value = "";
 
     clearSearchBtn.style.display = "none";
 
     document.getElementById("resultSection").innerHTML = "";
-
-    document.getElementById("resultSection")
-    .classList.add("hidden");
+    document.getElementById("resultSection").classList.add("hidden");
 
     document.getElementById("suggestionsGrid").innerHTML = "";
-
-    document.getElementById("suggestionsSection")
-    .classList.add("hidden");
+    document.getElementById("suggestionsSection").classList.add("hidden");
 
     input.focus();
 
 });
 
-
-const button = document.getElementById("searchBtn");
-
-// -------------------------------
-// Recherche
-// -------------------------------
+// ===========================================
+// Lancer la recherche
+// ===========================================
 
 button.addEventListener("click", launchSearch);
 
-input.addEventListener("keydown", function(e){
+input.addEventListener("keydown", function (e) {
 
-    if(e.key === "Enter"){
+    if (e.key === "Enter") {
 
         launchSearch();
 
@@ -57,11 +55,11 @@ input.addEventListener("keydown", function(e){
 
 });
 
-async function launchSearch(){
+async function launchSearch() {
 
     const value = input.value.trim();
 
-    if(value === ""){
+    if (value === "") {
 
         showToast("Veuillez saisir un domaine.");
 
@@ -74,22 +72,19 @@ async function launchSearch(){
     loader.classList.remove("hidden");
 
     document.getElementById("resultSection").classList.add("hidden");
-
     document.getElementById("suggestionsSection").classList.add("hidden");
 
-    try{
+    try {
 
         const data = await searchDomain(value);
 
         displayResult(data);
 
-       updateDashboard(value, data.available);
-
         saveHistory(value);
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
@@ -97,7 +92,7 @@ async function launchSearch(){
 
     }
 
-    finally{
+    finally {
 
         loader.classList.add("hidden");
 
@@ -105,109 +100,74 @@ async function launchSearch(){
 
 }
 
-// -------------------------------
+// ===========================================
 // Tester une suggestion
-// -------------------------------
+// ===========================================
 
-function testSuggestion(domain){
+function testSuggestion(domain) {
 
-    input.value = domain.replace(".sn","");
+    input.value = domain.replace(".sn", "");
 
     launchSearch();
 
 }
 
-// -------------------------------
+// ===========================================
 // Chargement
-// -------------------------------
+// ===========================================
 
-window.addEventListener("DOMContentLoaded", function(){
-
-    loadDashboard();
+window.addEventListener("DOMContentLoaded", function () {
 
     renderHistory();
 
 });
-// ==========================================
-// Réinitialisation complète
-// ==========================================
+
+// ===========================================
+// Réinitialiser tout l'historique
+// ===========================================
 
 const clearBtn = document.getElementById("clearHistoryBtn");
 
-if(clearBtn){
+if (clearBtn) {
 
-    clearBtn.addEventListener("click", function(){
+    clearBtn.addEventListener("click", function () {
 
         const confirmation = confirm(
-            "Voulez-vous vraiment réinitialiser toutes les recherches ?"
+            "Voulez-vous vraiment supprimer tout l'historique ?"
         );
 
-        if(!confirmation){
+        if (!confirmation) {
 
             return;
 
         }
 
-        // -----------------------------
-        // Suppression des données
-        // -----------------------------
+        // Historique
 
         localStorage.removeItem("history");
 
-        localStorage.removeItem("searchCount");
-
-        localStorage.removeItem("lastSearch");
-
-        localStorage.removeItem("availableCount");
-
-        // -----------------------------
-        // Remise à zéro des cartes
-        // -----------------------------
-
-        document.getElementById("searchCount").textContent = "0";
-
-        document.getElementById("lastSearch").textContent = "-";
-
-        const available =
-        document.getElementById("availableCount");
-
-        if(available){
-
-            available.textContent = "0";
-
-        }
-
-        // -----------------------------
-        // Effacement des résultats
-        // -----------------------------
+        // Résultats
 
         document.getElementById("resultSection").innerHTML = "";
+        document.getElementById("resultSection").classList.add("hidden");
 
-        document.getElementById("resultSection")
-        .classList.add("hidden");
+        // Suggestions
 
-        document.getElementById("suggestionsGrid")
-        .innerHTML = "";
+        document.getElementById("suggestionsGrid").innerHTML = "";
+        document.getElementById("suggestionsSection").classList.add("hidden");
 
-        document.getElementById("suggestionsSection")
-        .classList.add("hidden");
+        // Champ
 
-        // -----------------------------
-        // Champ de recherche
-        // -----------------------------
+        input.value = "";
 
-        document.getElementById("domainInput").value = "";
+        clearSearchBtn.style.display = "none";
 
-        // -----------------------------
         // Historique
-        // -----------------------------
 
         renderHistory();
 
-        showToast("Toutes les recherches ont été réinitialisées.");
+        showToast("Historique supprimé.");
 
     });
 
 }
-
-
