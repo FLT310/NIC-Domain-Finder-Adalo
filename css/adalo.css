@@ -1418,3 +1418,14 @@ color:#6B7280;
 text-align:center;
 
 }
+.fade-out{
+
+opacity:0;
+
+transform:translateY(-10px);
+
+transition:.35s ease;
+
+pointer-events:none;
+
+}

@@ -6,6 +6,20 @@
 
 function displayResult(data){
 
+    const homeContent = document.getElementById("homeContent");
+
+if(homeContent){
+
+    homeContent.classList.add("fade-out");
+
+    setTimeout(()=>{
+
+        homeContent.style.display = "none";
+
+    },350);
+
+}
+
     const resultSection =
     document.getElementById("resultSection");
 
