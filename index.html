@@ -23,6 +23,21 @@
 
 <body>
 
+<!-- ===========================
+HEADER
+=========================== -->
+
+<section class="finder-header">
+
+    <h1>Recherche Domaine</h1>
+
+    <p>
+        Vérifiez instantanément la disponibilité
+        d'un domaine <strong>.SN</strong>
+        auprès du registre officiel.
+    </p>
+
+</section>
 
 <!-- ===========================
 RECHERCHE
@@ -52,14 +67,55 @@ RECHERCHE
 
         <button id="searchBtn">
 
-            🔍 Rechercher
+            🔍 Vérifier un domaine
+
+        </button>
+
+        <p class="search-helper">
+
+            Les résultats proviennent du registre officiel
+            <strong>NIC Sénégal</strong>.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+DOMAINES POPULAIRES
+=========================== -->
+
+<section class="popular-domains">
+
+    <h2>Exemples populaires</h2>
+
+    <div class="popular-list">
+
+        <button class="popular-domain"
+                onclick="testSuggestion('nic.sn')">
+
+            nic.sn
+
+        </button>
+
+        <button class="popular-domain"
+                onclick="testSuggestion('ucad.sn')">
+
+            ucad.sn
+
+        </button>
+
+        <button class="popular-domain"
+                onclick="testSuggestion('senegal.sn')">
+
+            senegal.sn
 
         </button>
 
     </div>
 
 </section>
-
 
 <!-- ===========================
 LOADER
@@ -69,32 +125,46 @@ LOADER
 
     <div class="spinner"></div>
 
-    <p>Recherche en cours...</p>
+    <h3>Recherche en cours...</h3>
+
+    <p>
+
+        Connexion au registre
+        officiel du NIC Sénégal.
+
+    </p>
 
 </section>
-
 
 <!-- ===========================
 RESULTATS
 =========================== -->
 
-<section id="resultSection" class="result-section hidden">
+<section
+    id="resultSection"
+    class="result-section hidden">
 
 </section>
-
 
 <!-- ===========================
 SUGGESTIONS
 =========================== -->
 
-<section id="suggestionsSection" class="suggestions hidden">
+<section
+    id="suggestionsSection"
+    class="suggestions hidden">
 
-    <h2>Suggestions</h2>
+    <h2>
 
-    <div id="suggestionsGrid"></div>
+        Suggestions disponibles
+
+    </h2>
+
+    <div id="suggestionsGrid">
+
+    </div>
 
 </section>
-
 
 <!-- ===========================
 HISTORIQUE
@@ -104,7 +174,11 @@ HISTORIQUE
 
     <div class="history-header">
 
-        <h2>Historique</h2>
+        <h2>
+
+            Historique
+
+        </h2>
 
         <button
             id="clearHistoryBtn"
@@ -118,12 +192,32 @@ HISTORIQUE
 
     <div id="historyContainer">
 
-        <p>Aucune recherche.</p>
+        <div class="history-empty">
+
+            <div class="history-icon">
+
+                🕘
+
+            </div>
+
+            <h3>
+
+                Aucune recherche
+
+            </h3>
+
+            <p>
+
+                Recherchez un domaine
+                pour commencer.
+
+            </p>
+
+        </div>
 
     </div>
 
 </section>
-
 
 <!-- ===========================
 SCRIPTS
